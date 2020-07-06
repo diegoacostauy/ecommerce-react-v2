@@ -12,7 +12,6 @@ export default class Shop extends Component {
     const { collections } = this.state;
     return (
       <div>
-        Shoppage
         {
           collections.map(({id, ...rest}) => (
             <CollectionPreview
