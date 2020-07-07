@@ -15,7 +15,7 @@ export default class Shop extends Component {
         {
           collections.map(({id, ...rest}) => (
             <CollectionPreview
-              id={id}
+              key={id}
               {...rest}
             />
           ))
