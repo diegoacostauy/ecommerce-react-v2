@@ -21,6 +21,11 @@
     & > .nav-item {
       padding: 10px 15px;
       text-transform: uppercase;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+      }
     }
   }
 }

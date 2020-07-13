@@ -1,8 +1,8 @@
 import React from 'react';
 import './Button.styles.scss';
 
-const Button = ({children, ...rest}) => (
-  <button className="btn" {...rest}>
+const Button = ({ children, isGoogleSignIn, ...rest }) => (
+  <button className={`btn ${isGoogleSignIn ? 'btn-google' : ''}`} {...rest}>
     {children}
   </button>
 );
