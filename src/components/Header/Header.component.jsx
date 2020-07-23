@@ -13,7 +13,6 @@ const Header = ({currentUser}) => (
     </Link>
     <nav className="navbar-nav">
       <Link to="/shop" className="nav-item">Shop</Link>
-      {console.log(currentUser)}
       {
         currentUser ?
           (<div tabIndex="0" role="link" className="nav-item" onClick={(e) => {
