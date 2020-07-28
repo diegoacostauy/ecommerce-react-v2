@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.actions';
 import './App.css';
 import Home from './pages/Home/Home.component';
 import Shop from './pages/Shop/Shop.component'
@@ -20,17 +22,13 @@ class App extends Component {
         const userRef = await createUserProfileDocument(userAuth);
         // listen changes in the doc ref
         userRef.onSnapshot(snapShot => {
-          this.setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data()
-            }
+          this.props.setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data()
           })
         })
       } else {
-        this.setState({
-          currentUser: null
-        });
+        this.props.setCurrentUser(null);
       }
     })
   }
@@ -40,10 +38,9 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
     return (
       <>
-        <Header currentUser={currentUser} />
+        <Header/>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/shop" exact component={Shop} />
@@ -54,4 +51,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(App);
