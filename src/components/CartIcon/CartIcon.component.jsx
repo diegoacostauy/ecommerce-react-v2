@@ -4,11 +4,17 @@ import { ReactComponent as ShoppingBag } from '../../assets/shopping-bag.svg'
 import { toggleCartDropdown } from '../../redux/cart/cart.actions';
 import './CartIcon.styles.scss';
 
-const CartIcon = ({hidden, toggleCartDropdown }) => {
+const CartIcon = ({ hidden, toggleCartDropdown }) => {
+  const toggleCartDropdownOnEnter = ev => {
+    if (ev.keyCode === 13 || ev.which === 13) {
+      toggleCartDropdown();
+    }
+  }
 
   return (<div
     className="cart-icon"
     onClick={toggleCartDropdown}
+    onKeyPress={toggleCartDropdownOnEnter}
     role="button"
     tabIndex="0"
     aria-pressed={hidden ? 'false' : 'true'}

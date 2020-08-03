@@ -4,6 +4,7 @@
   flex-direction: column;
   height: 350px;
   align-items: center;
+  position: relative;
 
   .image {
     width: 100%;
@@ -11,6 +12,25 @@
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+  }
+
+  & .btn {
+    width: 80%;
+    opacity: .7;
+    position: absolute;
+    bottom: calc(5% + 20px);
+    display: none;
+  }
+
+  &:hover {
+    & .image {
+      opacity: .8;
+    }
+
+    & .btn {
+      opacity: .85;
+      display: flex;
+    }
   }
 
   .collection-footer {
