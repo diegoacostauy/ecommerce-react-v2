@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ReactComponent as ShoppingBag } from '../../assets/shopping-bag.svg'
 import { toggleCartDropdown } from '../../redux/cart/cart.actions';
+import { selectCartItemsCount, selectCartHidden } from '../../redux/cart/cart.selectors';
+import { createStructuredSelector } from 'reselect';
 import './CartIcon.styles.scss';
 
-const CartIcon = ({ hidden, toggleCartDropdown }) => {
+const CartIcon = ({ hidden, toggleCartDropdown, itemsCount }) => {
   const toggleCartDropdownOnEnter = ev => {
     if (ev.keyCode === 13 || ev.which === 13) {
       toggleCartDropdown();
@@ -23,13 +25,14 @@ const CartIcon = ({ hidden, toggleCartDropdown }) => {
   >
     <ShoppingBag className="shopping-icon" />
     <span className="item-count">
-      0
+      {itemsCount}
     </span>
   </div>);
 };
 
-const mapStateToProps = ({ cart: { hidden } }) => ({
-  hidden
+const mapStateToProps = createStructuredSelector({
+  hidden: selectCartHidden,
+  itemsCount: selectCartItemsCount
 });
 
 const mapDispatchToProps = dispatch => ({
