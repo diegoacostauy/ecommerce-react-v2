@@ -4,6 +4,7 @@ import { setCurrentUser } from './redux/user/user.actions';
 import './App.css';
 import Home from './pages/Home/Home.component';
 import Shop from './pages/Shop/Shop.component'
+import Checkout from './pages/Checkout/Checkout.component'
 import Header from './components/Header/Header.component';
 import Register from './pages/Register/Register.component';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -49,7 +50,8 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/shop" exact component={Shop} />
-          <Route exact path="/register" render={() => currentUser ?
+          <Route path="/checkout" exact component={Checkout} />
+          <Route path="/register" exact  render={() => currentUser ?
             (<Redirect to="/" />) :
             (<Register />)
           }/>
