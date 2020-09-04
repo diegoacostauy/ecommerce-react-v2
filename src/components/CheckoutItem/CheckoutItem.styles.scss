@@ -23,12 +23,21 @@
   }
 
   .quantity {
-    padding-left: 20px;
+    display: flex;
+    align-items: center;
+
+    & .value {
+      margin: 0 10px;
+    }
+
+    & .action-btn {
+      width: 24px;
+      height: 24px;
+      font-size: 16px;
+    }
   }
 
-  .remove-button {
-    padding-left: 12px;
-    cursor: pointer;
+  .action-btn {
     appearance: none;
     background-color: transparent;
     box-shadow: none;
