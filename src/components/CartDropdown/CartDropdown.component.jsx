@@ -18,7 +18,7 @@ const Cart = ({ history, cartItems, dispatch }) => (
       }
     </div>
     <Button onClick={() => {
-      history.push('checkout');
+      history.push('/checkout');
       dispatch(toggleCartDropdown());
     }}>Go to checkout</Button>
   </div>

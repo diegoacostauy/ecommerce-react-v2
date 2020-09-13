@@ -49,7 +49,7 @@ class App extends Component {
         <Header/>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/shop" exact component={Shop} />
+          <Route path="/shop" component={Shop} />
           <Route path="/checkout" exact component={Checkout} />
           <Route path="/register" exact  render={() => currentUser ?
             (<Redirect to="/" />) :
