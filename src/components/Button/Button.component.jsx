@@ -1,10 +1,11 @@
 import React from 'react';
-import './Button.styles.scss';
+// import './Button.styles.scss';
+import { ButtonStyled } from './Button.styles';
 
-const Button = ({ children, isGoogleSignIn, inverted, ...rest }) => (
-  <button className={`btn ${inverted ? 'btn-inverted' : ''} ${isGoogleSignIn ? 'btn-google' : ''}`} {...rest}>
+const Button = ({ children, ...props }) => (
+  <ButtonStyled {...props}>
     {children}
-  </button>
+  </ButtonStyled>
 );
 
 export default Button;

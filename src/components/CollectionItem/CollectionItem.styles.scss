@@ -14,7 +14,7 @@
     margin-bottom: 5px;
   }
 
-  & .btn {
+  & button {
     width: 80%;
     opacity: .7;
     position: absolute;
@@ -27,7 +27,7 @@
       opacity: .8;
     }
 
-    & .btn {
+    & button {
       opacity: .85;
       display: flex;
     }

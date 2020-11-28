@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import './Header.styles.scss';
+// import './Header.styles.scss';
+import { HeaderWrapper, LogoContainer, NavbarNav, NavItemLink } from './Header.styles';
 import CartDropdown from '../CartDropdown/CartDropdown.component';
 import CartIcon from '../CartIcon/CartIcon.component';
 import { ReactComponent as Logo } from '../../../src/assets/crown.svg';
@@ -13,33 +13,33 @@ import { createStructuredSelector } from 'reselect';
 // import Logo from '../../../src/assets/crown.svg';
 
 const Header = ({currentUser, hidden}) => (
-  <header className="navbar">
-    <Link className="logo-container" to="/">
+  <HeaderWrapper>
+    <LogoContainer to="/">
       <Logo className="logo" />
       {/* <img src={Logo} alt=""/> */}
-    </Link>
-    <nav className="navbar-nav">
-      <Link to="/shop" className="nav-item">Shop</Link>
+    </LogoContainer>
+    <NavbarNav>
+      <NavItemLink to="/shop" className="nav-item">Shop</NavItemLink>
       {
         currentUser ?
-          (<div tabIndex="0" role="link" className="nav-item" onClick={(e) => {
+          (<NavItemLink as="div" tabIndex="0" role="link" className="nav-item" onClick={(e) => {
             e.preventDefault();
             auth.signOut();
             window.location.pathname = '/';
-          }}>Sign Out</div>) :
-          ( <Link className="nav-item" to="/register">Sign In</Link> )
+          }}>Sign Out</NavItemLink>) :
+          ( <NavItemLink className="nav-item" to="/register">Sign In</NavItemLink> )
 
       }
-      <Link to="/contact" className="nav-item">Contact</Link>
+      <NavItemLink to="/contact" className="nav-item">Contact</NavItemLink>
       <CartIcon />
-    </nav>
+    </NavbarNav>
     {(
       !hidden ?
       <CartDropdown /> :
       null
     )}
 
-  </header>
+  </HeaderWrapper>
 );
 
 // const mapStateToProps = state => ({
