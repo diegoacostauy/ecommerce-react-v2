@@ -38,6 +38,39 @@ export const createUserProfileDocument = async (user, additionalData) => {
   return userRef;
 }
 
+// method to convert collections read from firebase to a more appropiate object
+// in the shape we need. Removing unnecesary data from firebase
+export const convertCollectionSnapToMap = (collections) => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  });
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection
+    return acc;
+  }, {});
+}
+
+// method to store shop collections from json to firebase
+// collectionKey = collectionName
+// items = items to be stored in that collection
+export const addCollectionAndDocuments = async (collectionKey, items) => {
+  const collectionRef = firestore.collection(collectionKey);
+  console.log(collectionRef);
+
+  const batch = firestore.batch();
+  items.forEach(item => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, item);
+  });
+  return await batch.commit();
+}
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();

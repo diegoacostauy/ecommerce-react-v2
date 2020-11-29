@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // const navItem = css`
@@ -22,7 +22,6 @@ export const HeaderWrapper = styled.header`
 export const LogoContainer = styled(Link)`
   height: 100%;
   width: 70px;
-  padding: 25px;
 `;
 
 export const NavbarNav = styled.nav`
