@@ -1,7 +1,7 @@
 import ShopActionsTypes from './shop.types';
 
 const initialState = {
-  collections: []
+  collections: null
 }
 
 export default (state = initialState, { type, payload }) => {
