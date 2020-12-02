@@ -20,11 +20,28 @@ class Shop extends Component {
   componentDidMount() {
     const { updateCollections } = this.props;
     const collectionRef = firestore.collection('collections');
-    collectionRef.onSnapshot( async snap => {
-      const collectionsMap = convertCollectionSnapToMap(snap);
-      updateCollections(collectionsMap);
-      this.setState({isLoading: false})
-    })
+
+    // Observable way
+    // collectionRef.onSnapshot( snap => {
+    //   const collectionsMap = convertCollectionSnapToMap(snap);
+    //   updateCollections(collectionsMap);
+    //   this.setState({isLoading: false})
+    // })
+
+    // This two ways are not refreshing data in real time, only when component
+    // mounts
+    // Api Rest way
+    // fetch('https://firestore.googleapis.com/v1/projects/ecommerce-react-v2/databases/(default)/documents/collections')
+    //   .then(res => res.json())
+    //   .then(data => console.log(data))
+
+    // Promise based call to firestorte
+    collectionRef.get()
+      .then(snap => {
+        const collectionsMap = convertCollectionSnapToMap(snap);
+        updateCollections(collectionsMap);
+        this.setState({ isLoading: false })
+      });
   }
 
   render() {
