@@ -17,3 +17,14 @@ export const selectCollection = url =>
     [selectShopCollections],
     collections => collections ? collections[url] : null
   )
+
+export const selectIsCollectionFetching = createSelector(
+  [selectShop],
+  shop => shop.isFetching
+)
+
+export const selectIsCollecitonLoaded = createSelector(
+  [selectShop],
+  shop => !!shop.collections // expression is the same as ternary below
+  // shop => shop.collections ? true : false
+)
