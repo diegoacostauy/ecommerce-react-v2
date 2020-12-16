@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { Route } from 'react-router-dom';
 import './Shop.styles.scss';
-import WithSpinner from '../../components/WithSpinner/WithSpinner';
-import CollectionOverview from '../../components/CollectionOverview/CollectionOverview.component'
-import Collection from '../Collection/Collection.component';
+import CollectionOverviewContainer from '../../components/CollectionOverview/CollectionOverview.container'
+import CollectionContainer from '../Collection/Collection.container';
 import { fetchCollectionsStartThunk } from '../../redux/shop/shop.actions';
-import { selectIsCollecitonLoaded } from '../../redux/shop/shop.selector';
 
-const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview);
-const CollectionWithSpinner = WithSpinner(Collection);
 class Shop extends Component {
   // state = {
   //   isLoading: true
@@ -48,24 +43,21 @@ class Shop extends Component {
   }
 
   render() {
-    const { match,  isCollectionLoaded} = this.props;
+    const { match } = this.props;
     // const { isLoading } = this.state;
     return (
       <div className="shop-page">
-        <Route exact path={`${match.path}`} render={(props) => <CollectionOverviewWithSpinner isLoading={!isCollectionLoaded} {...props} />} />
-        <Route path={`${match.path}/:id`} render={(props) => <CollectionWithSpinner isLoading={!isCollectionLoaded} {...props} />} />
+        <Route exact path={`${match.path}`} component={CollectionOverviewContainer} />
+        <Route path={`${match.path}/:id`} component={CollectionContainer}/>
       </div>
     );
   }
  };
 
-const mapStateToProps = createStructuredSelector({
-  isCollectionLoaded: selectIsCollecitonLoaded
-})
 
 const mapDispatchToProps = dispatch => ({
   fetchCollectionsStartThunk: () => dispatch(fetchCollectionsStartThunk())
 //   updateCollections: collectionsMap => dispatch(updateCollections(collectionsMap))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Shop);
+export default connect(null, mapDispatchToProps)(Shop);
