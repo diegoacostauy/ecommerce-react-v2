@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import './Shop.styles.scss';
 import CollectionOverviewContainer from '../../components/CollectionOverview/CollectionOverview.container'
 import CollectionContainer from '../Collection/Collection.container';
-import { fetchCollectionsStartThunk } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 
 class Shop extends Component {
   // state = {
@@ -14,8 +14,8 @@ class Shop extends Component {
   // unsubscribeFromSnapshot = null;
 
   componentDidMount() {
-    const { fetchCollectionsStartThunk } = this.props;
-    fetchCollectionsStartThunk();
+    const { fetchCollectionsStart } = this.props;
+    fetchCollectionsStart();
   //   const { updateCollections } = this.props;
   //   const collectionRef = firestore.collection('collections');
 
@@ -56,7 +56,7 @@ class Shop extends Component {
 
 
 const mapDispatchToProps = dispatch => ({
-  fetchCollectionsStartThunk: () => dispatch(fetchCollectionsStartThunk())
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 //   updateCollections: collectionsMap => dispatch(updateCollections(collectionsMap))
 })
 
