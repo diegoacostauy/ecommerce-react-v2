@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import './Shop.styles.scss';
@@ -6,58 +6,23 @@ import CollectionOverviewContainer from '../../components/CollectionOverview/Col
 import CollectionContainer from '../Collection/Collection.container';
 import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 
-class Shop extends Component {
-  // state = {
-  //   isLoading: true
-  // };
+const Shop = ({ fetchCollectionsStart, match }) => {
 
-  // unsubscribeFromSnapshot = null;
-
-  componentDidMount() {
-    const { fetchCollectionsStart } = this.props;
+  useEffect(() => {
     fetchCollectionsStart();
-  //   const { updateCollections } = this.props;
-  //   const collectionRef = firestore.collection('collections');
+  }, [fetchCollectionsStart]);
 
-  //   // Observable way
-  //   // collectionRef.onSnapshot( snap => {
-  //   //   const collectionsMap = convertCollectionSnapToMap(snap);
-  //   //   updateCollections(collectionsMap);
-  //   //   this.setState({isLoading: false})
-  //   // })
-
-  //   // This two ways are not refreshing data in real time, only when component
-  //   // mounts
-  //   // Api Rest way
-  //   // fetch('https://firestore.googleapis.com/v1/projects/ecommerce-react-v2/databases/(default)/documents/collections')
-  //   //   .then(res => res.json())
-  //   //   .then(data => console.log(data))
-
-  //   // Promise based call to firestorte
-  //   collectionRef.get()
-  //     .then(snap => {
-  //       const collectionsMap = convertCollectionSnapToMap(snap);
-  //       updateCollections(collectionsMap);
-  //       this.setState({ isLoading: false })
-  //     });
-  }
-
-  render() {
-    const { match } = this.props;
-    // const { isLoading } = this.state;
-    return (
-      <div className="shop-page">
-        <Route exact path={`${match.path}`} component={CollectionOverviewContainer} />
-        <Route path={`${match.path}/:id`} component={CollectionContainer}/>
-      </div>
-    );
-  }
+  return (
+    <div className="shop-page">
+      <Route exact path={`${match.path}`} component={CollectionOverviewContainer} />
+      <Route path={`${match.path}/:id`} component={CollectionContainer}/>
+    </div>
+  );
  };
 
 
 const mapDispatchToProps = dispatch => ({
   fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
-//   updateCollections: collectionsMap => dispatch(updateCollections(collectionsMap))
 })
 
 export default connect(null, mapDispatchToProps)(Shop);
