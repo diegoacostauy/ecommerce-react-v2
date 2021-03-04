@@ -17,11 +17,21 @@ export const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+
+  @media (max-width: 800px) {
+    height: 60px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const LogoContainer = styled(Link)`
   height: 100%;
   width: 70px;
+
+  @media (max-width: 800px) {
+    width: 50px;
+  }
 `;
 
 export const NavbarNav = styled.nav`
@@ -30,6 +40,10 @@ export const NavbarNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  @media (max-width: 800px) {
+    width: 80%;
+  }
 `;
 
 export const NavItemLink = styled(Link)`
