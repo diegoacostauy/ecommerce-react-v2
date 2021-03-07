@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
-import Home from './pages/Home/Home.component';
-import Shop from './pages/Shop/Shop.component'
-import Checkout from './pages/Checkout/Checkout.component'
 import Header from './components/Header/Header.component';
-import Register from './pages/Register/Register.component';
+import Spinner from './components/Spinner/Spinner.component';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.component';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { selectCurrentUser } from './redux/user/user.selector';
@@ -12,6 +10,11 @@ import { checkUserSession } from './redux/user/user.actions';
 import { createStructuredSelector } from 'reselect';
 
 import { GlobalStyle } from './global.styles';
+
+const Home = lazy(() => import('./pages/Home/Home.component'));
+const Shop = lazy(() => import('./pages/Shop/Shop.component'));
+const Checkout = lazy(() => import('./pages/Checkout/Checkout.component'));
+const Register = lazy(() => import('./pages/Register/Register.component'));
 
 const App = ({ currentUser, checkUserSession }) => {
 
@@ -25,13 +28,17 @@ const App = ({ currentUser, checkUserSession }) => {
       <GlobalStyle/>
       <Header/>
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/shop" component={Shop} />
-        <Route path="/checkout" exact component={Checkout} />
-        <Route path="/register" exact  render={() => currentUser ?
-          (<Redirect to="/" />) :
-          (<Register />)
-        }/>
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <Route path="/" exact component={Home} />
+            <Route path="/shop" component={Shop} />
+            <Route path="/checkout" exact component={Checkout} />
+            <Route path="/register" exact render={() => currentUser ?
+              (<Redirect to="/" />) :
+              (<Register />)
+            } />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </>
   );
