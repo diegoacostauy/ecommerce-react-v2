@@ -38,6 +38,19 @@ export const createUserProfileDocument = async (user, additionalData) => {
   return userRef;
 }
 
+export const getUserCartRef = async userId => {
+  const cartRefs = firestore.collection('carts').where('userId', '==', userId);
+  const snap = await cartRefs.get();
+
+  if (snap.empty) {
+    const cartDocRef = firestore.collection('carts').doc();
+    await cartDocRef.set({ userId, cartItems: [] });
+    return cartDocRef;
+  } else {
+    return snap.docs[0].ref;
+  }
+}
+
 // method to convert collections read from firebase to a more appropiate object
 // in the shape we need. Removing unnecesary data from firebase
 export const convertCollectionSnapToMap = (collections) => {
